@@ -1,0 +1,41 @@
+{
+  "name": "simple-training-reactjs-app",
+  "version": "0.0.2",
+  "description": "A Todo app",
+  "scripts": {
+    "start": "gulp dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "SW"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SW999/todo-app"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "gulp": "^3.9.0",
+    "browser-sync": "^2.11.0",
+    "gulp-sass": "^2.1.1",
+    "node-sass": "^3.4.2",
+    "react-router": "^0.13.2",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^2.5.0",
+    "lodash": "^3.10.0"
+  },
+  "dependencies": {
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-bootstrap": "^0.28.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify"
+      ]
+    ]
+  }
+}
