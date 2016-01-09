@@ -20,10 +20,10 @@ var TodoApp = React.createClass({
   },
   render: function () {
     return (
-      <Grid>
+      <Grid className="app-wrapper">
         <Row>
           <Col xs={6} xsOffset={3}>
-            <Panel header={<h1>TODO list</h1>} bsStyle="info">
+            <Panel header="TODO list" bsStyle="primary">
               <TodoList items={this.state.items}/>
               <TodoForm onFormSubmit={this.updateItems}/>
             </Panel>

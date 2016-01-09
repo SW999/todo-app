@@ -26,7 +26,7 @@ var TodoApp = React.createClass({
   render: function render() {
     return React.createElement(
       Grid,
-      null,
+      { className: "app-wrapper" },
       React.createElement(
         Row,
         null,
@@ -35,11 +35,7 @@ var TodoApp = React.createClass({
           { xs: 6, xsOffset: 3 },
           React.createElement(
             Panel,
-            { header: React.createElement(
-                "h1",
-                null,
-                "TODO list"
-              ), bsStyle: "info" },
+            { header: "TODO list", bsStyle: "primary" },
             React.createElement(TodoList, { items: this.state.items }),
             React.createElement(TodoForm, { onFormSubmit: this.updateItems })
           )
@@ -56,7 +52,15 @@ ReactDOM.render(React.createElement(TodoApp, null), document.getElementById("app
 
 var React = require("react");
 var ReactDOM = require("react-dom");
+var Bootstrap = require("react-bootstrap");
+var Input = Bootstrap.Input;
+var Button = Bootstrap.Button;
 
+var innerButton = React.createElement(
+  Button,
+  { type: "submit", bsStyle: "info" },
+  "Add"
+);
 var TodoForm = React.createClass({
   displayName: "TodoForm",
 
@@ -77,21 +81,15 @@ var TodoForm = React.createClass({
   render: function render() {
     return React.createElement(
       "form",
-      { onSubmit: this.handleSubmit },
-      React.createElement(
-        "label",
-        { htmlFor: "newTaskInput" },
-        "Create new task: "
-      ),
-      React.createElement("input", { type: "text", ref: "item", id: "newTaskInput", onChange: this.onChange, value: this.state.item }),
-      React.createElement("input", { type: "submit", value: "Add" })
+      { onSubmit: this.handleSubmit, className: "form-horizontal" },
+      React.createElement(Input, { type: "text", label: "Create new task: ", labelClassName: "col-xs-4", wrapperClassName: "col-xs-5", ref: "item", id: "newTaskInput", onChange: this.onChange, value: this.state.item, buttonAfter: innerButton })
     );
   }
 });
 
 module.exports = TodoForm;
 
-},{"react":"D:\\SW\\projects\\todoapp\\node_modules\\react\\react.js","react-dom":"D:\\SW\\projects\\todoapp\\node_modules\\react-dom\\index.js"}],"D:\\SW\\projects\\todoapp\\js\\components\\todoList.js":[function(require,module,exports){
+},{"react":"D:\\SW\\projects\\todoapp\\node_modules\\react\\react.js","react-bootstrap":"D:\\SW\\projects\\todoapp\\node_modules\\react-bootstrap\\lib\\index.js","react-dom":"D:\\SW\\projects\\todoapp\\node_modules\\react-dom\\index.js"}],"D:\\SW\\projects\\todoapp\\js\\components\\todoList.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");

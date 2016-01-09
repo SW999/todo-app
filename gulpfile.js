@@ -4,6 +4,7 @@ var browserify = require('browserify'),
   browserSync = require('browser-sync'),
   reload = browserSync.reload,
   sass = require('gulp-sass'),
+  plumber = require('gulp-plumber'),
   source = require('vinyl-source-stream');
 
 //**************** Server ***************************
@@ -18,7 +19,8 @@ gulp.task('browser-sync', function () {
 //**************** Build/Watch SASS *****************************
 function buildSass() {
   return gulp.src('scss/*.scss')
-    .pipe(sass({errLogToConsole: true}))
+    .pipe(plumber())
+    .pipe(sass())
     .pipe(gulp.dest('css'))
     .pipe(reload({stream: true}));
 }
