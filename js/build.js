@@ -127,7 +127,7 @@ var TodoList = React.createClass({
     var createItem = function createItem(itemText, i) {
       return React.createElement(
         TodoListItem,
-        { key: i, delItem: self.deleteItem, readyItem: self.doItemReady.bind(null, null, itemText), isReady: itemText.ready },
+        { key: i, delItem: self.deleteItem.bind(null, null, itemText), readyItem: self.doItemReady.bind(null, null, itemText), isReady: itemText.ready },
         i + 1 + ". " + itemText.text
       );
     };
