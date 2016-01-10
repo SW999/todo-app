@@ -16,7 +16,13 @@ var TodoApp = React.createClass({
   displayName: "TodoApp",
 
   getInitialState: function getInitialState() {
-    return { items: ["Todo item #1", "Todo item #2"] };
+    return { items: [{
+        text: "Todo item #1",
+        ready: false
+      }, {
+        text: "Todo item #2",
+        ready: false
+      }] };
   },
   updateItems: function updateItems(newItem) {
     var allItems = this.state.items.concat([newItem]);
@@ -71,24 +77,24 @@ var TodoForm = React.createClass({
   displayName: "TodoForm",
 
   getInitialState: function getInitialState() {
-    return { item: "" };
+    return { item: { text: "", ready: false } };
   },
   handleSubmit: function handleSubmit(e) {
     e.preventDefault();
-    this.props.onFormSubmit(this.state.item);
-    this.setState({ item: "" });
+    this.props.onFormSubmit(this.state.item, this.state.scs);
+    this.setState({ item: { text: "", ready: false } });
     ReactDOM.findDOMNode(this.refs.item).focus();
   },
   onChange: function onChange(e) {
     this.setState({
-      item: e.target.value
+      item: { text: e.target.value, ready: false }
     });
   },
   render: function render() {
     return React.createElement(
       "form",
       { onSubmit: this.handleSubmit, className: "form-horizontal" },
-      React.createElement(Input, { type: "text", label: "Create new task:", labelClassName: "col-xs-4", wrapperClassName: "col-xs-7", ref: "item", id: "newTaskInput", onChange: this.onChange, value: this.state.item, buttonAfter: innerButton })
+      React.createElement(Input, { type: "text", label: "Create new task:", labelClassName: "col-xs-4", wrapperClassName: "col-xs-7", ref: "item", id: "newTaskInput", onChange: this.onChange, value: this.state.item.text, buttonAfter: innerButton })
     );
   }
 });
@@ -106,12 +112,23 @@ var ListGroup = Bootstrap.ListGroup;
 var TodoList = React.createClass({
   displayName: "TodoList",
 
+  deleteItem: function deleteItem(e, item) {
+    var cutedItems = this.props.items.splice(this.props.items.indexOf(item), 1);
+    this.setState({ items: cutedItems });
+  },
+  doItemReady: function doItemReady(e, item) {
+    var toggleReady = this.props.items[this.props.items.indexOf(item)];
+    var readyValue = toggleReady.ready;
+    this.props.items[this.props.items.indexOf(item)].ready = !readyValue;
+    this.setState({ items: this.props.items });
+  },
   render: function render() {
+    var self = this;
     var createItem = function createItem(itemText, i) {
       return React.createElement(
         TodoListItem,
-        { key: i },
-        itemText
+        { key: i, delItem: self.deleteItem, readyItem: self.doItemReady.bind(null, null, itemText), isReady: itemText.ready },
+        i + 1 + ". " + itemText.text
       );
     };
     return React.createElement(
@@ -141,7 +158,7 @@ var TodoListItem = React.createClass({
   render: function render() {
     return React.createElement(
       ListGroupItem,
-      { bsStyle: "warning" },
+      { bsStyle: this.props.isReady ? "success" : "warning", className: this.props.isReady ? "task-is-ready" : "" },
       React.createElement(
         ButtonToolbar,
         { bsClass: "fl-r" },
@@ -150,22 +167,26 @@ var TodoListItem = React.createClass({
           { bsSize: "xsmall" },
           React.createElement(
             Button,
-            { bsStyle: "primary", title: "Edit" },
+            { bsStyle: "primary", onClick: this.props.editItem, title: "Edit" },
             React.createElement(Glyphicon, { glyph: "pencil" })
           ),
           React.createElement(
             Button,
-            { bsStyle: "success", title: "Success" },
+            { bsStyle: "success", onClick: this.props.readyItem, title: "Success" },
             React.createElement(Glyphicon, { glyph: "ok" })
           ),
           React.createElement(
             Button,
-            { bsStyle: "danger", title: "Remove" },
+            { bsStyle: "danger", onClick: this.props.delItem, title: "Remove" },
             React.createElement(Glyphicon, { glyph: "remove" })
           )
         )
       ),
-      this.props.children
+      React.createElement(
+        "span",
+        { className: "item-text" },
+        this.props.children
+      )
     );
   }
 });

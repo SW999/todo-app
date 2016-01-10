@@ -11,7 +11,16 @@ var Glyphicon = Bootstrap.Glyphicon;
 
 var TodoApp = React.createClass({
   getInitialState: function () {
-    return {items: ['Todo item #1', 'Todo item #2']};
+    return {items: [
+      {
+        text: 'Todo item #1',
+        ready: false
+      },
+      {
+        text: 'Todo item #2',
+        ready: false
+      }
+    ]};
   },
   updateItems: function (newItem) {
     var allItems = this.state.items.concat([newItem]);
