@@ -10,6 +10,7 @@ var Grid = Bootstrap.Grid;
 var Row = Bootstrap.Row;
 var Col = Bootstrap.Col;
 var Panel = Bootstrap.Panel;
+var Glyphicon = Bootstrap.Glyphicon;
 
 var TodoApp = React.createClass({
   displayName: "TodoApp",
@@ -35,7 +36,12 @@ var TodoApp = React.createClass({
           { xs: 6, xsOffset: 3 },
           React.createElement(
             Panel,
-            { header: "TODO list", bsStyle: "primary" },
+            { header: React.createElement(
+                "h1",
+                null,
+                React.createElement(Glyphicon, { glyph: "tasks" }),
+                " TODO"
+              ), bsStyle: "primary" },
             React.createElement(TodoList, { items: this.state.items }),
             React.createElement(TodoForm, { onFormSubmit: this.updateItems })
           )
@@ -82,7 +88,7 @@ var TodoForm = React.createClass({
     return React.createElement(
       "form",
       { onSubmit: this.handleSubmit, className: "form-horizontal" },
-      React.createElement(Input, { type: "text", label: "Create new task: ", labelClassName: "col-xs-4", wrapperClassName: "col-xs-5", ref: "item", id: "newTaskInput", onChange: this.onChange, value: this.state.item, buttonAfter: innerButton })
+      React.createElement(Input, { type: "text", label: "Create new task:", labelClassName: "col-xs-4", wrapperClassName: "col-xs-7", ref: "item", id: "newTaskInput", onChange: this.onChange, value: this.state.item, buttonAfter: innerButton })
     );
   }
 });
@@ -94,6 +100,8 @@ module.exports = TodoForm;
 
 var React = require("react");
 var TodoListItem = require("./todoListItem");
+var Bootstrap = require("react-bootstrap");
+var ListGroup = Bootstrap.ListGroup;
 
 var TodoList = React.createClass({
   displayName: "TodoList",
@@ -107,8 +115,8 @@ var TodoList = React.createClass({
       );
     };
     return React.createElement(
-      "ul",
-      null,
+      ListGroup,
+      { componentClass: "ul" },
       this.props.items.map(createItem)
     );
   }
@@ -116,18 +124,47 @@ var TodoList = React.createClass({
 
 module.exports = TodoList;
 
-},{"./todoListItem":"D:\\SW\\projects\\todoapp\\js\\components\\todoListItem.js","react":"D:\\SW\\projects\\todoapp\\node_modules\\react\\react.js"}],"D:\\SW\\projects\\todoapp\\js\\components\\todoListItem.js":[function(require,module,exports){
+},{"./todoListItem":"D:\\SW\\projects\\todoapp\\js\\components\\todoListItem.js","react":"D:\\SW\\projects\\todoapp\\node_modules\\react\\react.js","react-bootstrap":"D:\\SW\\projects\\todoapp\\node_modules\\react-bootstrap\\lib\\index.js"}],"D:\\SW\\projects\\todoapp\\js\\components\\todoListItem.js":[function(require,module,exports){
 "use strict";
 
 var React = require("react");
+var Bootstrap = require("react-bootstrap");
+var ListGroupItem = Bootstrap.ListGroupItem;
+var ButtonToolbar = Bootstrap.ButtonToolbar;
+var ButtonGroup = Bootstrap.ButtonGroup;
+var Button = Bootstrap.Button;
+var Glyphicon = Bootstrap.Glyphicon;
 
 var TodoListItem = React.createClass({
   displayName: "TodoListItem",
 
   render: function render() {
     return React.createElement(
-      "li",
-      null,
+      ListGroupItem,
+      { bsStyle: "warning" },
+      React.createElement(
+        ButtonToolbar,
+        { bsClass: "fl-r" },
+        React.createElement(
+          ButtonGroup,
+          { bsSize: "xsmall" },
+          React.createElement(
+            Button,
+            { bsStyle: "primary", title: "Edit" },
+            React.createElement(Glyphicon, { glyph: "pencil" })
+          ),
+          React.createElement(
+            Button,
+            { bsStyle: "success", title: "Success" },
+            React.createElement(Glyphicon, { glyph: "ok" })
+          ),
+          React.createElement(
+            Button,
+            { bsStyle: "danger", title: "Remove" },
+            React.createElement(Glyphicon, { glyph: "remove" })
+          )
+        )
+      ),
       this.props.children
     );
   }
@@ -135,7 +172,7 @@ var TodoListItem = React.createClass({
 
 module.exports = TodoListItem;
 
-},{"react":"D:\\SW\\projects\\todoapp\\node_modules\\react\\react.js"}],"D:\\SW\\projects\\todoapp\\node_modules\\browserify\\node_modules\\process\\browser.js":[function(require,module,exports){
+},{"react":"D:\\SW\\projects\\todoapp\\node_modules\\react\\react.js","react-bootstrap":"D:\\SW\\projects\\todoapp\\node_modules\\react-bootstrap\\lib\\index.js"}],"D:\\SW\\projects\\todoapp\\node_modules\\browserify\\node_modules\\process\\browser.js":[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

@@ -23,7 +23,7 @@ var TodoForm = React.createClass({
   render: function(){
     return (
       <form onSubmit={this.handleSubmit} className="form-horizontal">
-        <Input type="text" label="Create new task: " labelClassName="col-xs-4" wrapperClassName="col-xs-5" ref='item' id="newTaskInput" onChange={this.onChange} value={this.state.item} buttonAfter={innerButton}/>
+        <Input type="text" label="Create new task:" labelClassName="col-xs-4" wrapperClassName="col-xs-7" ref='item' id="newTaskInput" onChange={this.onChange} value={this.state.item} buttonAfter={innerButton}/>
       </form>
     );
   }

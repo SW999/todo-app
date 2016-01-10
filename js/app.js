@@ -7,6 +7,7 @@ var Grid = Bootstrap.Grid;
 var Row = Bootstrap.Row;
 var Col = Bootstrap.Col;
 var Panel = Bootstrap.Panel;
+var Glyphicon = Bootstrap.Glyphicon;
 
 var TodoApp = React.createClass({
   getInitialState: function () {
@@ -23,7 +24,7 @@ var TodoApp = React.createClass({
       <Grid className="app-wrapper">
         <Row>
           <Col xs={6} xsOffset={3}>
-            <Panel header="TODO list" bsStyle="primary">
+            <Panel header={<h1><Glyphicon glyph="tasks" /> TODO</h1>} bsStyle="primary">
               <TodoList items={this.state.items}/>
               <TodoForm onFormSubmit={this.updateItems}/>
             </Panel>

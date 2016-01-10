@@ -1,5 +1,7 @@
 var React = require('react');
 var TodoListItem = require('./todoListItem');
+var Bootstrap = require('react-bootstrap');
+var ListGroup = Bootstrap.ListGroup;
 
 var TodoList = React.createClass({
   render: function() {
@@ -8,7 +10,7 @@ var TodoList = React.createClass({
         <TodoListItem key={i}>{itemText}</TodoListItem>
       );
     };
-    return <ul>{this.props.items.map(createItem)}</ul>;
+    return <ListGroup componentClass="ul">{this.props.items.map(createItem)}</ListGroup>;
   }
 });
 
