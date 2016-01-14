@@ -14,13 +14,17 @@ var TodoList = React.createClass({
     this.props.items[this.props.items.indexOf(item)].ready = !readyValue;
     this.setState({items: this.props.items});
   },
+
+  editItem: function (itemNewText) {
+    alert(itemNewText);
+  },
+
   render: function () {
     var self = this;
     var createItem = function (itemText, i) {
+      var t = (i + 1) + '. ' + itemText.text;
       return (
-        <TodoListItem key={i} delItem={self.deleteItem.bind(null, null, itemText)} readyItem={self.doItemReady.bind(null, null, itemText)} isReady={itemText.ready}>
-        {(i + 1) + '. ' + itemText.text}
-        </TodoListItem>
+        <TodoListItem key={i} itemText={t} editItem={self.editItem} delItem={self.deleteItem.bind(null, null, itemText)} readyItem={self.doItemReady.bind(null, null, itemText)} isReady={itemText.ready} />
       );
     };
     return <ListGroup componentClass="ul">{this.props.items.map(createItem)}</ListGroup>;
