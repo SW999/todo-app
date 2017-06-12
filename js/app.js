@@ -1,27 +1,24 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TodoList = require('./components/todoList');
-var TodoForm = require('./components/todoForm');
-var Bootstrap = require('react-bootstrap');
-var Grid = Bootstrap.Grid;
-var Row = Bootstrap.Row;
-var Col = Bootstrap.Col;
-var Panel = Bootstrap.Panel;
-var Glyphicon = Bootstrap.Glyphicon;
+const React = require('react');
+const ReactDOM = require('react-dom');
+const TodoList = require('./Components/todoList');
+import {Grid, Row, Col, Panel, Glyphicon} from 'react-bootstrap';
+const TodoForm = require('./Components/todoForm');
+const AlertStore = require('./Stores/ListStore');
 
-var TodoApp = React.createClass({
+const TodoApp = React.createClass({
 
     getInitialState: function () {
         return {
-            items: []
+            items: AlertStore.getAll()
         };
     },
 
-    updateItems: function (newItem) {
-        var allItems = this.state.items.concat([newItem]);
-        this.setState({
-            items: allItems
-        });
+    componentWillMount: function() {
+        AlertStore.addChangeListener(this.updateItems);
+    },
+
+    componentWillUnmount: function() {
+        AlertStore.removeChangeListener(this.updateItems);
     },
 
     render: function () {
@@ -31,12 +28,18 @@ var TodoApp = React.createClass({
                     <Col xs={6} xsOffset={3}>
                         <Panel header={<h1><Glyphicon glyph="tasks"/> TODO</h1>} bsStyle="primary">
                             <TodoList items={this.state.items}/>
-                            <TodoForm onFormSubmit={this.updateItems}/>
+                            <TodoForm/>
                         </Panel>
                     </Col>
                 </Row>
             </Grid>
         );
+    },
+
+    updateItems: function () {
+        this.setState({
+            items: AlertStore.getAll()
+        });
     }
 });
 

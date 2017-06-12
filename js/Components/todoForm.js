@@ -1,8 +1,8 @@
-var React = require('react');
-var Bootstrap = require('react-bootstrap');
-var Input = Bootstrap.Input;
-var Button = Bootstrap.Button;
-var innerButton = <Button type="submit" bsStyle="info">Add</Button>;
+const React = require('react');
+import {Input, Button, } from 'react-bootstrap';
+const innerButton = <Button type="submit" bsStyle="info">Add</Button>;
+const ListActions = require('../Actions/ListActions');
+
 
 module.exports = React.createClass({
 
@@ -11,8 +11,7 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             item: {
-                text: '',
-                ready: false
+                text: ''
             }
         };
     },
@@ -42,15 +41,19 @@ module.exports = React.createClass({
             return false;
         }
 
-        this.props.onFormSubmit(this.state.item);
+        this.createNewItem();
         this.setState({
-            item: {text: '', ready: false}
+            item: {text: ''}
         });
     },
 
     onChange: function (e) {
         this.setState({
-            item: {text: e.target.value, ready: false}
+            item: {text: e.target.value}
         });
+    },
+
+    createNewItem: function() {
+        ListActions.add(this.state.item);
     }
 });
