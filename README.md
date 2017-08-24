@@ -5,7 +5,9 @@ A simple training project.
 
 ![A simple training project](https://github.com/SW999/todo-app/raw/master/img/test-project.gif)
 
-## Getting started
+<details>
+<summary>## Getting started</summary>
+
 Clone the repository:
 
 ```sh
@@ -25,3 +27,4 @@ gulp
 ```
 
 Browser will be started automatically at http://localhost:3000
+</details>
