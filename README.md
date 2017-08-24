@@ -6,7 +6,7 @@ A simple training project.
 ![A simple training project](https://github.com/SW999/todo-app/raw/master/img/test-project.gif)
 
 <details>
-<summary>## Getting started</summary>
+<summary><h2>Getting started</h2></summary>
 
 Clone the repository:
 
